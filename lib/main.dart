@@ -3,8 +3,10 @@ import 'package:convertisseur_web_app/Home.dart';
 import 'package:convertisseur_web_app/Settings.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
   runApp(
     MyApp(),
   );
@@ -37,7 +39,7 @@ class BottomNav extends StatefulWidget {
 class _BottomNavState extends State<BottomNav> {
   int _page = 0;
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-  List<Widget> screens = [AboutUs(), Home(), Settings()];
+  List<Widget> screens = [AboutUs(), Home(), const Settings()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +47,7 @@ class _BottomNavState extends State<BottomNav> {
       body: screens[_page],
       bottomNavigationBar: Theme(
         data: Theme.of(context)
-            .copyWith(iconTheme: IconThemeData(color: Colors.pink)),
+            .copyWith(iconTheme: IconThemeData(color: Colors.white)),
         child: CurvedNavigationBar(
           key: _bottomNavigationKey,
           index: 0,
@@ -55,8 +57,8 @@ class _BottomNavState extends State<BottomNav> {
             Icon(Icons.home, size: 30),
             Icon(Icons.settings, size: 30),
           ],
-          color: Colors.white,
-          buttonBackgroundColor: Colors.orange,
+          color: Colors.blue,
+          buttonBackgroundColor: Colors.blue,
           backgroundColor: Colors.transparent,
           animationCurve: Curves.easeInOut,
           animationDuration: const Duration(milliseconds: 600),

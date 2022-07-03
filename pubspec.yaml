@@ -1,6 +1,14 @@
 name: convertisseur_web_app
 description: A new Flutter project.
 
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/icon.png" # run commande    flutter pub run flutter_launcher_name:main
+
+flutter_app_name:
+  name: "My Cool App"  #run commande   flutter pub run flutter_app_name
+
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -36,6 +44,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
   webview_flutter: ^3.0.4
+  flutter_dotenv: ^5.0.2
+  flutter_launcher_icons: ^0.9.3
+  flutter_app_name: ^0.1.1
 
 dev_dependencies:
   flutter_test:
@@ -60,9 +71,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+     - .env
+     - images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
