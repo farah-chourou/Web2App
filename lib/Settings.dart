@@ -13,6 +13,7 @@ class _SettingsState extends State<Settings> {
   final appName = dotenv.env['NAME_APP'].toString();
 
   String urlLogo = dotenv.env['URL_ICON'].toString();
+  String? hexString = dotenv.env['THEME_COLOR'];
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class _SettingsState extends State<Settings> {
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(20),
-            color: Theme.of(context).primaryColor,
+            color: Color(int.parse("0xff$hexString")),
             child: Center(
               child: Column(
                 children: <Widget>[

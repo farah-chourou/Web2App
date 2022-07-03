@@ -4,6 +4,7 @@ import 'package:convertisseur_web_app/Settings.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -38,8 +39,10 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNavState extends State<BottomNav> {
   int _page = 0;
-  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+  final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
   List<Widget> screens = [AboutUs(), Home(), const Settings()];
+  String? hexString = dotenv.env['THEME_COLOR'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,8 +60,8 @@ class _BottomNavState extends State<BottomNav> {
             Icon(Icons.home, size: 30),
             Icon(Icons.settings, size: 30),
           ],
-          color: Colors.blue,
-          buttonBackgroundColor: Colors.blue,
+          color: Color(int.parse("0xff$hexString")),
+          buttonBackgroundColor: Color(int.parse("0xff$hexString")),
           backgroundColor: Colors.transparent,
           animationCurve: Curves.easeInOut,
           animationDuration: const Duration(milliseconds: 600),
