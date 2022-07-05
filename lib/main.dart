@@ -40,14 +40,92 @@ class BottomNav extends StatefulWidget {
 class _BottomNavState extends State<BottomNav> {
   int _page = 0;
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-  List<Widget> screens = [AboutUs(), Home(), const Settings()];
+  List<Widget> screens = [AboutUs(), Home()];
+  List listState = [];
   String? hexString = dotenv.env['THEME_COLOR'];
+  final appName = dotenv.env['NAME_APP'].toString();
+
+  String urlLogo = dotenv.env['URL_ICON'].toString();
+  final GlobalKey<ScaffoldState> _key = GlobalKey(); // Create a key
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       extendBody: true,
-      body: screens[_page],
+      /*   appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.replay_outlined,
+              color: Colors.white,
+            ),
+            onPressed: () {},
+          )
+        ],
+      ),*/
+      body: getBody(),
+      drawer: Drawer(
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(20),
+              color: Color(int.parse("0xff$hexString")),
+              child: Center(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                        margin: const EdgeInsets.only(
+                          top: 30,
+                          bottom: 15,
+                        ),
+                        width: 100,
+                        height: 100,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: Image.asset(urlLogo)),
+                    Text(
+                      appName,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            ListTile(
+                leading: Icon(Icons.home),
+                title: const Text(
+                  'About us',
+                  style: TextStyle(fontSize: 18),
+                ),
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContextncontext) => AboutUs()));
+                }),
+            const ListTile(
+              leading: Icon(Icons.share),
+              title: Text(
+                'Share',
+                style: TextStyle(fontSize: 18),
+              ),
+              onTap: null,
+            ),
+            const ListTile(
+              leading: Icon(Icons.close),
+              title: Text(
+                'Close',
+                style: TextStyle(fontSize: 18),
+              ),
+              onTap: null,
+            )
+          ],
+        ),
+      ),
       bottomNavigationBar: Theme(
         data: Theme.of(context)
             .copyWith(iconTheme: IconThemeData(color: Colors.white)),
@@ -70,9 +148,30 @@ class _BottomNavState extends State<BottomNav> {
               _page = index;
             });
           },
-          letIndexChange: (index) => true,
         ),
       ),
     );
+  }
+
+  getScreen() {
+    if (_page == 1) {
+      Home();
+
+      _key.currentState?.openDrawer();
+    } else if (_page == 0) {
+      return AboutUs();
+    } else {
+      return Settings();
+    }
+  }
+
+  Widget getBody() {
+    if (_page == 1) {
+      return Home();
+    } else if (_page == 0) {
+      return AboutUs();
+    } else {
+      return getScreen();
+    }
   }
 }
