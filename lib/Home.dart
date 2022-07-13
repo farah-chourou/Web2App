@@ -38,6 +38,9 @@ class _HomeState extends State<Home> {
               child: Stack(
                 children: [
                   WebView(
+                    onWebResourceError: (WebResourceError webviewerrr) {
+                      print("Handle your Error Page here");
+                    },
                     initialUrl: dotenv.env['URL_HOME_PAGE'],
                     javascriptMode: JavascriptMode.unrestricted,
                     onWebViewCreated: (WebViewController webViewController) {

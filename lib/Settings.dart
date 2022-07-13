@@ -30,16 +30,24 @@ class _SettingsState extends State<Settings> {
               child: Column(
                 children: <Widget>[
                   Container(
-                      margin: const EdgeInsets.only(
-                        top: 30,
-                        bottom: 15,
+                    margin: const EdgeInsets.only(
+                      top: 30,
+                      bottom: 15,
+                    ),
+                    width: 100,
+                    height: 100,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: CircleAvatar(
+                      radius: 16.0,
+                      backgroundColor: Colors.white,
+                      child: ClipRRect(
+                        child: Image.asset(urlLogo),
+                        borderRadius: BorderRadius.circular(50.0),
                       ),
-                      width: 100,
-                      height: 100,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: Image.asset(urlLogo)),
+                    ),
+                  ),
                   Text(
                     appName,
                     style: const TextStyle(

@@ -1,9 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.convertisseur_web_app">
    <application
-        android:label="top digital agency"
+        android:label="Sahelha Web Agency"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/launcher_icon"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -30,6 +31,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+            
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 
