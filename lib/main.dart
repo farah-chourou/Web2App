@@ -4,7 +4,6 @@ import 'package:convertisseur_web_app/Settings.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
@@ -23,10 +22,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner:
-            false, // bich yna7ili kilmiit debuug 3ala jnab
-        home: BottomNav());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: BottomNav());
   }
 }
 
@@ -39,6 +35,7 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNavState extends State<BottomNav> {
   int _page = 0;
+  int prevpage = 1;
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
   List<Widget> screens = [AboutUs(), Home()];
   List listState = [];
@@ -53,79 +50,8 @@ class _BottomNavState extends State<BottomNav> {
     return Scaffold(
       key: _key,
       extendBody: true,
-      /*   appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.replay_outlined,
-              color: Colors.white,
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),*/
       body: getBody(),
-      drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(20),
-              color: Color(int.parse("0xff$hexString")),
-              child: Center(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                        margin: const EdgeInsets.only(
-                          top: 30,
-                          bottom: 15,
-                        ),
-                        width: 100,
-                        height: 100,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
-                        child: Image.asset(urlLogo)),
-                    Text(
-                      appName,
-                      style: const TextStyle(
-                        fontSize: 22,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            ListTile(
-                leading: Icon(Icons.home),
-                title: const Text(
-                  'About us',
-                  style: TextStyle(fontSize: 18),
-                ),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContextncontext) => AboutUs()));
-                }),
-            const ListTile(
-              leading: Icon(Icons.share),
-              title: Text(
-                'Share',
-                style: TextStyle(fontSize: 18),
-              ),
-              onTap: null,
-            ),
-            const ListTile(
-              leading: Icon(Icons.close),
-              title: Text(
-                'Close',
-                style: TextStyle(fontSize: 18),
-              ),
-              onTap: null,
-            )
-          ],
-        ),
-      ),
+      drawer: Settings(),
       bottomNavigationBar: Theme(
         data: Theme.of(context)
             .copyWith(iconTheme: IconThemeData(color: Colors.white)),
@@ -134,7 +60,7 @@ class _BottomNavState extends State<BottomNav> {
           index: 0,
           height: 60.0,
           items: const <Widget>[
-            Icon(Icons.add, size: 30),
+            Icon(Icons.contact_page, size: 30),
             Icon(Icons.home, size: 30),
             Icon(Icons.settings, size: 30),
           ],
@@ -144,9 +70,16 @@ class _BottomNavState extends State<BottomNav> {
           animationCurve: Curves.easeInOut,
           animationDuration: const Duration(milliseconds: 600),
           onTap: (index) {
-            setState(() {
-              _page = index;
-            });
+            if (_page == index) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyApp()),
+              );
+            } else {
+              setState(() {
+                _page = index;
+              });
+            }
           },
         ),
       ),

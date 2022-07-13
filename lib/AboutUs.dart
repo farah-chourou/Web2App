@@ -14,47 +14,57 @@ class _AboutUsState extends State<AboutUs> {
   bool isLoading = true;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: RefreshIndicator(
-        onRefresh: () async => Future.delayed(const Duration(seconds: 0), () {
-          _controller.reload();
-          setState(() {});
-        }),
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Stack(
-              children: [
-                WebView(
-                  initialUrl: dotenv.env['URL_ABOUT_US'],
-                  javascriptMode: JavascriptMode.unrestricted,
-                  onWebViewCreated: (WebViewController webViewController) {
-                    setState(() {
-                      _controller = webViewController;
-                    });
-                  },
-                  onPageStarted: (url) {},
-                  onPageFinished: (url) {
-                    if (mounted)
-                      setState(
-                        () {
-                          isLoading = false;
-                        },
-                      );
-                  },
-                ),
-                if (isLoading)
-                  const Center(
-                    child: SizedBox(
-                      width: 70,
-                      height: 70,
-                      child: CircularProgressIndicator(),
-                    ),
+    return WillPopScope(
+      onWillPop: () async {
+        if (await _controller.canGoBack()) {
+          _controller.goBack();
+          return false;
+        } else {
+          return true;
+        }
+      },
+      child: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: () async => Future.delayed(const Duration(seconds: 0), () {
+            _controller.reload();
+            setState(() {});
+          }),
+          child: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Stack(
+                children: [
+                  WebView(
+                    initialUrl: dotenv.env['URL_ABOUT_US'],
+                    javascriptMode: JavascriptMode.unrestricted,
+                    onWebViewCreated: (WebViewController webViewController) {
+                      setState(() {
+                        _controller = webViewController;
+                      });
+                    },
+                    onPageStarted: (url) {},
+                    onPageFinished: (url) {
+                      if (mounted)
+                        setState(
+                          () {
+                            isLoading = false;
+                          },
+                        );
+                    },
                   ),
-              ],
+                  if (isLoading)
+                    const Center(
+                      child: SizedBox(
+                        width: 70,
+                        height: 70,
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
         ),

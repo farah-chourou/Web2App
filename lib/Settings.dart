@@ -1,6 +1,8 @@
 import 'package:convertisseur_web_app/AboutUs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:share_plus/share_plus.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -11,8 +13,8 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   final appName = dotenv.env['NAME_APP'].toString();
-
   String urlLogo = dotenv.env['URL_ICON'].toString();
+  String APK_LINK = dotenv.env['APK_LINK'].toString();
   String? hexString = dotenv.env['THEME_COLOR'];
 
   @override
@@ -50,30 +52,34 @@ class _SettingsState extends State<Settings> {
             ),
           ),
           ListTile(
-              leading: Icon(Icons.home),
+              leading: Icon(Icons.contact_page),
               title: const Text(
-                'About us',
+                'Contact us',
                 style: TextStyle(fontSize: 18),
               ),
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContextncontext) => AboutUs()));
               }),
-          const ListTile(
+          ListTile(
             leading: Icon(Icons.share),
             title: Text(
               'Share',
               style: TextStyle(fontSize: 18),
             ),
-            onTap: null,
+            onTap: () {
+              Share.share('check out the apk link ${APK_LINK}');
+            },
           ),
-          const ListTile(
+          ListTile(
             leading: Icon(Icons.close),
             title: Text(
               'Close',
               style: TextStyle(fontSize: 18),
             ),
-            onTap: null,
+            onTap: () {
+              SystemNavigator.pop();
+            },
           )
         ],
       ),

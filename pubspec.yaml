@@ -7,7 +7,7 @@ flutter_icons:
   image_path: "images/icon.png" # run commande    flutter pub run flutter_launcher_name:main
 
 flutter_app_name:
-  name: "My Cool App"  #run commande   flutter pub run flutter_app_name
+  name: "top digital agency"  #run commande   flutter pub run flutter_app_name
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -48,6 +48,7 @@ dependencies:
   flutter_launcher_icons: ^0.9.3
   flutter_app_name: ^0.1.1
   pull_to_refresh: ^2.0.0
+  share_plus: ^4.0.10
 
 dev_dependencies:
   flutter_test:
