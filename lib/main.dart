@@ -34,10 +34,9 @@ class BottomNav extends StatefulWidget {
 }
 
 class _BottomNavState extends State<BottomNav> {
-  int _page = 0;
-  int prevpage = 1;
+  int _page = 1;
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-  List<Widget> screens = [AboutUs(), Home()];
+  List<Widget> screens = [Home(), AboutUs()];
   List listState = [];
   String? hexString = dotenv.env['THEME_COLOR'];
   final appName = dotenv.env['NAME_APP'].toString();
@@ -57,7 +56,7 @@ class _BottomNavState extends State<BottomNav> {
             .copyWith(iconTheme: IconThemeData(color: Colors.white)),
         child: CurvedNavigationBar(
           key: _bottomNavigationKey,
-          index: 0,
+          index: 1,
           height: 60.0,
           items: const <Widget>[
             Icon(Icons.contact_page, size: 30),
@@ -86,25 +85,13 @@ class _BottomNavState extends State<BottomNav> {
     );
   }
 
-  getScreen() {
-    if (_page == 1) {
-      Home();
-
-      _key.currentState?.openDrawer();
-    } else if (_page == 0) {
-      return AboutUs();
-    } else {
-      return Settings();
-    }
-  }
-
   Widget getBody() {
     if (_page == 1) {
       return Home();
     } else if (_page == 0) {
       return AboutUs();
     } else {
-      return getScreen();
+      return const Settings();
     }
   }
 }
